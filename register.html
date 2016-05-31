@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超星系</title>
+    <script src="socket.io.js"></script>
+<script>
+  var socket = io('http://localhost:8080');
+  socket.once('connect', function () {
+
+  	console.log('已接入超星系!');
+
+    var payload = {
+      channelUuid:"e91a0b58-3899-42f2-a667-74da0405a5d8",
+      regToken:"20552f1ed1e360574e011a96ad059958261a09a8"
+    };
+
+    socket.emit('register', payload, function(res){
+
+      if(res.s){
+        console.log('注册成功！');
+        console.log(JSON.stringify(res.p));
+      }else{
+        console.log('注册失败！');
+        console.log(JSON.stringify(res.p));
+      }
+      
+    });
+
+  });
+</script>
+</head>
+<body>
+
+</body>
+</html>

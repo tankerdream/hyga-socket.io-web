@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超星系</title>
+    <script src="socket.io.js"></script>
+<script>
+  var socket = io('http://localhost:8080');
+  socket.once('connect', function () {
+
+  	console.log('已接入超星系!');
+
+    var device = {
+      uuid:'3e9fd243-2d75-42a4-89b9-a4e70a51b58d',
+      token:'31b5ee84aff6e4fb2db70d1d2fe43f6e58e7ec6d'
+    };
+
+    socket.emit('identity',device);
+
+    socket.on('ready', function(data){
+    	console.log('已验证设备信息');
+    	console.log(JSON.stringify(data));
+    });
+
+    socket.on('notReady', function(data){
+      console.log('未验证通过');
+      console.log(data);
+    });
+
+    socket.on('message',function(data){
+      console.log('接受到消息');
+      console.log(JSON.stringify(data));
+    });
+
+  });
+</script>
+</head>
+<body>
+
+</body>
+</html>
